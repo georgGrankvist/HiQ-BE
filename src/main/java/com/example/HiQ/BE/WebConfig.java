@@ -5,6 +5,10 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * @author Georg Grankvist
+ * Configuration class disabling CORS
+ */
 @Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
