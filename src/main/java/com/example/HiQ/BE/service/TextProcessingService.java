@@ -11,7 +11,21 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 
+/**
+ * @author Georg Grankvist
+ * This class is responsible for turning the files received from the Controller
+ * into String objects and transforming the content.
+ */
+
 public class TextProcessingService {
+
+    /**
+     * Recieves file from controller, builds and returns a ResponseEntity built
+     * from a String instantiated from ProcessText method return
+     * @param textFile
+     * @return
+     * @throws IOException
+     */
 
     public ResponseEntity<TextProcessResponse> returnText(MultipartFile textFile) throws IOException {
         String processedText = processText(textFile);
@@ -20,6 +34,17 @@ public class TextProcessingService {
 
         return new ResponseEntity<>(processResponse, HttpStatus.OK);
     }
+
+    /**
+     * This method creates a String object out of the textfile bytes,
+     * parses it line by line using the Scanner class, and puts each
+     * unique word and its number of occurrences into a <Key, Value>
+     * keyset of a TreeMap. It then passes the TreeMap and text to the
+     * transformText method
+     * @param textFile
+     * @returns the String return of the transformText method.
+     * @throws IOException
+     */
 
     private String processText(MultipartFile textFile) throws IOException {
 
@@ -56,6 +81,14 @@ public class TextProcessingService {
         else return "The textfile was empty!";
 
     }
+
+    /**
+     * Finds the most frequently used word(s) using Collections.max on the TreeMap,
+     * then uses Regex and replaceAll() to append foo and bar to that word.
+     * @param wordOccurrenceMap
+     * @param extractedText
+     * @return the transformed text
+     */
 
     private String transformText(Map<String, Integer> wordOccurrenceMap, String extractedText) {
 
